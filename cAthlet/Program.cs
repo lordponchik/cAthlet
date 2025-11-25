@@ -1,5 +1,6 @@
 using cAthlet.Data;
 using cAthlet.Models;
+using cAthlet.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,8 +20,17 @@ namespace cAthlet
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+
+                options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequiredLength = 6;
+            })
+                .AddEntityFrameworkStores<ApplicationDbContext>().AddErrorDescriber<GermanIdentityErrorDescriber>();
 
             builder.Services.AddControllersWithViews();
 

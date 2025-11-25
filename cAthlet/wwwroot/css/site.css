@@ -1,10 +1,10 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-ul{
+ul {
     list-style: none;
 }
 
@@ -16,13 +16,14 @@ a {
 body {
     overflow: hidden;
     background-color: #ECEDE6;
-    color: #6498AF;
+    color: #A7A6B0;
 }
 
-.container{
+.container {
     display: flex;
     height: 100vh;
 }
+
 header {
     width: 15%;
     display: flex;
@@ -32,22 +33,79 @@ header {
     text-align: center;
     background-color: #5D6474;
 }
+
 nav {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
 }
+
 .logoContainer {
     margin-bottom: 50px;
 }
-.userName{
+
+.userName {
     margin-bottom: 15px;
 }
+
 .hauptbildschirm {
     width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
+
+main {
+    padding: 10px 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 15px;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 8%;
+    margin-bottom: 8%;
+    border: 1px solid #8CA9BD;
+}
+.benutzerAnmBereich {
+    background-image: url(../bilder/benutzerVarwaltungsKater.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: contain;
+}
+.haupttitel {
+    margin-bottom: 25px;
+}
+.extratitel{
+    margin-bottom: 20px;
+}
+
+form > hr {
+    margin-bottom: 15px;
+}
+.text-danger {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    height: 20px;
+    display: block;
+    color: #da3d3d;
+}
+.input {
+    padding: 5px 10px;
+    border: 1px solid #6498AF;
+}
+.btn {
+    background-color: #6498AF;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
 footer {
-    position: fixed;
-    bottom: 5px;
+    margin-bottom: 10px;
+    text-align: center;
 }
