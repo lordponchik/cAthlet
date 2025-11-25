@@ -160,6 +160,10 @@ namespace cAthlet.Areas.Identity.Pages.Account
             try
             {
                 return Activator.CreateInstance<ApplicationUser>();
+               /* return new ApplicationUser
+                {
+                    ProfileImage = "kater0.png" 
+                };*/
             }
             catch
             {

@@ -144,11 +144,63 @@ form > hr {
     background-size: contain;
 }
 
-.angemeldethomebereich > ul {
+    .angemeldethomebereich > ul {
         list-style: disc;
-}
+    }
 
 footer {
     margin-bottom: 10px;
     text-align: center;
+}
+
+.benutzerverwalten {
+    display: flex;
+    gap: 10px;
+    width: max-content;
+    border-bottom: 1px solid black;
+}
+
+    .benutzerverwalten .nav-link {
+        display: block;
+        padding: 5px 10px;
+        background-color: #5D6474;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+        .benutzerverwalten .nav-link.active {
+            background-color: #6498AF;
+        }
+
+.verwalungskarte {
+    position: relative;
+    min-height: 30vh;
+    display: flex;
+    justify-content: space-evenly;
+    box-shadow: -8px 3px 4px #ccc;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+}
+.verwaltungsnachricht {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+}
+.datenbenutzer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.bildbenutzer {
+    align-items: center;
+}
+
+.titelverwalten {
+    margin-bottom: 15px;
+}
+
+.nextbildbenutzer {
+    min-width: 100px;
 }

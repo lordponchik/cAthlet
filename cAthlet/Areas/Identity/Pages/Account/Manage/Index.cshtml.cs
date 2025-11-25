@@ -56,11 +56,19 @@ namespace cAthlet.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Phone]
+          /*  [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+          */
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public int? Age { get; set; }
+            public float? Height { get; set; }
+            public float? Weight { get; set; }
+            public string ProfileImage { get; set; }
         }
 
+        public List<string> AvailableImages { get; set; } = new List<string> { "kater0.png", "kater1.png", "kater2.png", "kater3.png", "kater4.png", "kater5.png", "kater6.png", "kater7.png", "kater8.png", "kater9.png", "kater10.png" };
         private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
@@ -70,7 +78,12 @@ namespace cAthlet.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Age = user.Age,
+                Height = user.Height,
+                Weight = user.Weight,
+                ProfileImage = user.ProfileImage
             };
         }
 
@@ -81,7 +94,15 @@ namespace cAthlet.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-
+            Input = new InputModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Age = user.Age,
+                Height = user.Height,
+                Weight = user.Weight,
+                ProfileImage = user.ProfileImage
+            };
             await LoadAsync(user);
             return Page();
         }
@@ -99,7 +120,7 @@ namespace cAthlet.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user);
                 return Page();
             }
-
+            /*
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
@@ -109,10 +130,18 @@ namespace cAthlet.Areas.Identity.Pages.Account.Manage
                     StatusMessage = "Unexpected error when trying to set phone number.";
                     return RedirectToPage();
                 }
-            }
+            }*/
+            user.FirstName = Input.FirstName;
+            user.LastName = Input.LastName;
+            user.Age = Input.Age;
+            user.Height = Input.Height;
+            user.Weight = Input.Weight;
+            user.ProfileImage = Input.ProfileImage;
+
+            await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Ihr Profil wurde aktualisiert";
             return RedirectToPage();
         }
     }

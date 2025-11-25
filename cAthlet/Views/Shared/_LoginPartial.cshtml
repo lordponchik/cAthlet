@@ -8,7 +8,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="userName">
-            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hallo Benutzer!</a>
+            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hallo Benutzer! </a>
     </li>
     <li>
         <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
