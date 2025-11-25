@@ -46,6 +46,7 @@ namespace cAthlet.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [Display(Name = "Passwort")]
             [Required]
             [DataType(DataType.Password)]
             public string Password { get; set; }
@@ -82,7 +83,7 @@ namespace cAthlet.Areas.Identity.Pages.Account.Manage
             {
                 if (!await _userManager.CheckPasswordAsync(user, Input.Password))
                 {
-                    ModelState.AddModelError(string.Empty, "Incorrect password.");
+                    ModelState.AddModelError(string.Empty, "Falsches Passwort.");
                     return Page();
                 }
             }

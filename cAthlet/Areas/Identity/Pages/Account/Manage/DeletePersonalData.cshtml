@@ -5,26 +5,29 @@
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
-<h3>@ViewData["Title"]</h3>
-
-<div class="alert alert-warning" role="alert">
-    <p>
-        <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
-    </p>
-</div>
 
 <div>
     <form id="delete-user" method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-        @if (Model.RequirePassword)
-        {
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Please enter your password." />
-                <label asp-for="Input.Password" class="form-label"></label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
+       <div class="verwalungskarte loeschen">
+
+            <div class="alert alert-warning" role="alert">
+                <p>
+                    <strong>Durch das Löschen dieser Daten wird Ihr Konto endgültig gelöscht und kann nicht wiederhergestellt werden.</strong>
+                </p>
             </div>
-        }
-        <button class="w-100 btn btn-lg btn-danger" type="submit">Delete data and close my account</button>
+            
+            @if (Model.RequirePassword)
+            {
+                <div class="form-floating mb-3">
+                    <label asp-for="Input.Password" class="form-label"></label>
+                    <input asp-for="Input.Password" class="form-control input" autocomplete="current-password" aria-required="true" placeholder="Bitte geben Sie Ihr Passwort ein." />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+            }
+            <div asp-validation-summary="ModelOnly" class="text-danger verwaltungsnachricht" role="alert"></div>
+       </div>
+
+        <button class="w-100 btn btn-lg btn-danger" type="submit">Daten löschen und mein Konto schließen</button>
     </form>
 </div>
 
