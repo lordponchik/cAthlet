@@ -104,7 +104,9 @@ form > hr {
     padding: 10px 15px;
     cursor: pointer;
 }
-
+.checkbox{
+    margin-bottom: 10px;
+}
 footer {
     margin-bottom: 10px;
     text-align: center;
