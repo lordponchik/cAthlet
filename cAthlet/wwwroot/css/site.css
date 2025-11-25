@@ -99,6 +99,7 @@ form > hr {
 }
 
 .input {
+    min-width: 200px;
     padding: 5px 10px;
     border: 1px solid #6498AF;
 }
@@ -180,6 +181,14 @@ footer {
     box-shadow: -8px 3px 4px #ccc;
     padding: 10px 15px;
     margin-bottom: 20px;
+}
+.verwalungskarte.email{
+    flex-direction: column;
+}
+.alte-email {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 .verwaltungsnachricht {
     position: absolute;

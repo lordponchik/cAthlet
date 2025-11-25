@@ -56,14 +56,23 @@ namespace cAthlet.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-          /*  [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
-          */
+            /*  [Phone]
+              [Display(Name = "Phone number")]
+              public string PhoneNumber { get; set; }
+            */
+            [Display(Name = "Vorname")]
             public string FirstName { get; set; }
+
+            [Display(Name = "Nachname")]
             public string LastName { get; set; }
+
+            [Display(Name = "Alter")]
             public int? Age { get; set; }
+
+            [Display(Name = "Größe")]
             public float? Height { get; set; }
+
+            [Display(Name = "Gewicht")]
             public float? Weight { get; set; }
             public string ProfileImage { get; set; }
         }

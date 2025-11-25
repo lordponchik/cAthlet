@@ -36,6 +36,7 @@ namespace cAthlet.Areas.Identity.Pages.Account.Manage
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
+        [Display(Name = "E-Mail")]
         public string Email { get; set; }
 
         /// <summary>
@@ -70,7 +71,7 @@ namespace cAthlet.Areas.Identity.Pages.Account.Manage
             /// </summary>
             [Required]
             [EmailAddress]
-            [Display(Name = "New email")]
+            [Display(Name = "Neue E-Mail")]
             public string NewEmail { get; set; }
         }
 
@@ -114,26 +115,35 @@ namespace cAthlet.Areas.Identity.Pages.Account.Manage
             }
 
             var email = await _userManager.GetEmailAsync(user);
+
             if (Input.NewEmail != email)
             {
-                var userId = await _userManager.GetUserIdAsync(user);
-                var code = await _userManager.GenerateChangeEmailTokenAsync(user, Input.NewEmail);
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                var callbackUrl = Url.Page(
-                    "/Account/ConfirmEmailChange",
-                    pageHandler: null,
-                    values: new { area = "Identity", userId = userId, email = Input.NewEmail, code = code },
-                    protocol: Request.Scheme);
-                await _emailSender.SendEmailAsync(
-                    Input.NewEmail,
-                    "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                user.Email = Input.NewEmail;
+                user.NormalizedEmail = Input.NewEmail.ToUpper();
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
-                return RedirectToPage();
+                user.UserName = Input.NewEmail;
+                user.NormalizedUserName = Input.NewEmail.ToUpper();
+
+                user.EmailConfirmed = true; 
+
+                var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    StatusMessage = "E-Mail-Adresse erfolgreich geändert.";
+                    return RedirectToPage();
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+
+                await LoadAsync(user);
+                return Page();
             }
 
-            StatusMessage = "Your email is unchanged.";
+            StatusMessage = "Ihre E-Mail-Adresse bleibt unverändert.";
             return RedirectToPage();
         }
 
