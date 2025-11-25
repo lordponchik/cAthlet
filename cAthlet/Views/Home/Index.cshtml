@@ -1,8 +1,49 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using Microsoft.AspNetCore.Identity
+@using cAthlet.Models
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<div class="home"> 
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="home-container angemeldethomebereich">
+            <h1>Bereit für das nächste Training?</h1>
+            <p>
+                Du bist eingeloggt – perfekt!
+            </p>
+            <p>Hier findest du deine: </p>
+            <ul>
+                <li>aktuellen Trainingspläne</li>
+                <li>abgeschlossene Einheiten</li>
+                <li>hilfreiche Atemübungen</li>
+                <li>gesunde Rezepte</li>
+                <li>Empfehlungen</li>
+            </ul>
+            <p>die genau zu deinem Ziel passen.</p>
+            <br />
+            <p>Mach dort weiter, wo du aufgehört hast, und bleib in deinem Flow!</p>
+        </div>
+    }
+    else
+    {
+        <div class="home-container homebereich">
+            <h1>Willkommen bei cAthlet</h1>
+            <p>
+                cAthlet hilft dir, dein Training strukturiert, effektiv und motiviert zu gestalten.
+            </p>
+            <p>Erstelle dein persönliches Profil, verfolge deinen Fortschritt und erreiche deine Ziele Schritt für Schritt.</p>
+            <br />
+            <p>Registriere dich kostenlos oder melde dich an, um sofort loszulegen!</p>
+        </div>
+    }
 </div>
+
+
+
+
+
+
