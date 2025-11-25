@@ -182,9 +182,10 @@ footer {
     padding: 10px 15px;
     margin-bottom: 20px;
 }
-.verwalungskarte.email{
-    flex-direction: column;
-}
+    .verwalungskarte.email,
+    .verwalungskarte.passwort {
+        flex-direction: column;
+    }
 .alte-email {
     display: flex;
     align-items: center;
@@ -194,6 +195,9 @@ footer {
     position: absolute;
     bottom: -20px;
     left: 0;
+}
+.verwaltungsnachricht.text-danger{
+    margin: 0;
 }
 .datenbenutzer {
     display: flex;
