@@ -182,25 +182,30 @@ footer {
     padding: 10px 15px;
     margin-bottom: 20px;
 }
+
     .verwalungskarte.email,
     .verwalungskarte.passwort,
     .verwalungskarte.daten,
     .verwalungskarte.loeschen {
         flex-direction: column;
     }
+
 .alte-email {
     display: flex;
     align-items: center;
     gap: 10px;
 }
+
 .verwaltungsnachricht {
     position: absolute;
     bottom: -20px;
     left: 0;
 }
-.verwaltungsnachricht.text-danger{
-    margin: 0;
-}
+
+    .verwaltungsnachricht.text-danger {
+        margin: 0;
+    }
+
 .datenbenutzer {
     display: flex;
     flex-direction: column;
@@ -219,6 +224,7 @@ footer {
 .nextbildbenutzer {
     min-width: 100px;
 }
+
 .atemEinstellungen {
     height: 80%;
     display: flex;
@@ -230,12 +236,14 @@ footer {
     background-position: 40vw center;
     background-size: contain;
 }
+
 .atemEinstellungen__form {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: min-content;
 }
+
 .atemUebung {
     height: 80%;
     display: flex;
@@ -248,29 +256,32 @@ footer {
     background-position: 40vw center;
     background-size: contain;
 }
+
 .atemUebung__container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
+
 #quadratContainer {
     position: relative;
     width: 200px;
     height: 200px;
     margin: 20px auto;
 }
+
 .quadratLinie {
     position: absolute;
     z-index: 2;
     background: #4CAF50;
 }
+
 #top {
     top: 0;
     left: 0;
     height: 4px;
     width: 0;
-    
 }
 
 #rechts {
@@ -279,7 +290,6 @@ footer {
     right: 0;
     width: 4px;
     height: 0;
-
 }
 
 #unten {
@@ -287,7 +297,6 @@ footer {
     right: 0;
     height: 4px;
     width: 0;
-
 }
 
 #links {
