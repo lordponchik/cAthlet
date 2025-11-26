@@ -18,14 +18,24 @@
 	<div class="container">
 		<header>
 			<nav>
-				<div class="logoContainer"><a asp-area="" asp-controller="Home" asp-action="Index" class="logo">cAthlet</a></div>
+				<div class="logoContainer">
+					<div class="logo" id="logo">
+						<span class="letter">c</span>
+						<span class="letter">A</span>
+						<span class="letter">t</span>
+						<span class="letter">h</span>
+						<span class="letter">l</span>
+						<span class="letter">e</span>
+						<span class="letter">t</span>
+					</div>
+				</div>
 
 				<ul>
 					<li>
-						<a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+						<a asp-area="" asp-controller="Home" asp-action="Index" class="nav__link">Home</a>
 					</li>
 					<li>
-						<a asp-area="" asp-controller="Atem" asp-action="Index">Einheitliches Atmen</a>
+						<a asp-area="" asp-controller="Atem" asp-action="Index" class="nav__link">Einheitliches Atmen</a>
 					</li>
 				</ul>
 				<partial name="_LoginPartial" />
@@ -35,9 +45,9 @@
 			<main role="main">
 				@RenderBody()
 			</main>
-			<footer>
+			<footer >
 				<div>
-					&copy; 2025 - cAthlet - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+					&copy; 2025 - cAthlet - 
 				</div>
 			</footer>
 		</div>
