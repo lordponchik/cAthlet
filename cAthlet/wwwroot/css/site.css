@@ -112,14 +112,18 @@ form > hr {
     padding: 5px 10px;
     border: 1px solid #6498AF;
 }
-
+.benutzerSystem{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 .btn {
+    display: inline-flex;
     background-color: #6498AF;
     border: none;
     color: white;
     padding: 10px 15px;
     cursor: pointer;
-
     transition: all 300ms ease-in-out;
 }
     .btn:hover,

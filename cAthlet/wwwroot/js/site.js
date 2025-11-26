@@ -8,9 +8,9 @@
 
     function startAnimation() {
 
-       setTimeout(() => {
-        logo.classList.add('animate');
-                }, 10);
+        setTimeout(() => {
+            logo.classList.add('animate');
+        }, 10);
    }
     startAnimation();
 });

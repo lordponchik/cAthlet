@@ -51,9 +51,6 @@ namespace cAthlet.Controllers
             return View();
         }
 
-
-        // ---------- LOGIN ----------
-
         [HttpGet]
         public IActionResult Login()
         {
@@ -71,9 +68,6 @@ namespace cAthlet.Controllers
             ModelState.AddModelError("", "Неверный логин или пароль");
             return View();
         }
-
-
-        // ---------- LOGOUT ----------
 
         public async Task<IActionResult> Logout()
         {
