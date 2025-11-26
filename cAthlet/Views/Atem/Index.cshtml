@@ -1,0 +1,42 @@
+﻿@model cAthlet.Models.AtemEinstellungen
+@{
+    ViewData["Title"] = "Quadratatmung - Einstellungen";
+}
+
+<div class="atemEinstellungen">
+    <h3>@ViewData["Title"]</h3>
+
+    @if (TempData["FormErrors"] != null)
+    {
+        <div class="alert alert-danger">
+            <pre>@TempData["FormErrors"]</pre>
+        </div>
+    }
+
+    <form method="post" asp-controller="Atem" asp-action="Index" class="atemEinstellungen__form">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label for="einatmenID">Einatmen (Sek.):</label>
+            <input asp-for="EinatmenSekunden" type="number" class="form-control input" min="1" max="10" id="einatmenID" />
+        </div>
+        <div class="form-group">
+            <label for="anhaltenID">Anhalten (Sek.):</label>
+            <input asp-for="AnhaltenSekunden" type="number" class="form-control input" min="0" max="10" id="anhaltenID" />
+        </div>
+        <div class="form-group">
+            <label for="ausatmenID">Ausatmen (Sek.):</label>
+            <input asp-for="AusatmenSekunden" type="number" class="form-control input" min="1" max="10" id="ausatmenID" />
+        </div>
+        <div class="form-group">
+            <label for="pauseID">Pause (Sek.):</label>
+            <input asp-for="PauseSekunden" type="number" class="form-control input" min="0" max="10" id="pauseID" />
+        </div>
+        <div class="form-group">
+            <label for="ausfuerungszeitID">Ausführungszeit (Min.):</label>
+            <input asp-for="GesamtMinuten" type="number" class="form-control input" min="1" max="10" id="ausfuerungszeitID" />
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Beginnen</button>
+    </form>
+</div>

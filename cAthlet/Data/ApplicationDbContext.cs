@@ -11,5 +11,7 @@ namespace cAthlet.Data
         {
         }
 
+        public DbSet<AtemEinstellungen> AtemEinstellungen { get; set; }
+        public DbSet<AtemSitzung> AtemSitzung { get; set; }
     }
 }

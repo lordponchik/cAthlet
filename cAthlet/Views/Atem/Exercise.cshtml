@@ -1,0 +1,197 @@
+﻿@model cAthlet.Models.AtemEinstellungen
+@using Microsoft.AspNetCore.Identity
+@using cAthlet.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Quadratische Atemübung";
+
+    var user = await UserManager.GetUserAsync(User);
+    string bild = user?.ProfileImage;
+
+    bool IstStandardBild = bild == "kater0.png";
+}
+
+<div class="atemUebung">
+    <h3>@ViewData["Title"]</h3>
+
+    <div class="atemUebung__container">
+        <div id="quadratContainer">
+
+            <div id="top" class="quadratLinie"></div>
+            <div id="rechts" class="quadratLinie"></div>
+            <div id="unten" class="quadratLinie"></div>
+            <div id="links" class="quadratLinie"></div>
+
+            @if (!IstStandardBild)
+            {
+                <div id="kater__container" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:120px; height:120px;">
+                    <img id="kater" src="/bilder/profiles/@bild" alt="Котенок"
+                         style="width:100%; height:100%; object-fit:contain; transition: all 0.8s ease-in-out;" />
+                </div>
+            }
+
+            <div style="position:absolute; top:0; left:0; width:100%; height:100%; border:2px dashed #ccc;"></div>
+        </div>
+
+        <p>Phase: <span id="phase">Vorbereitung...</span></p>
+        <p>Verbleibende Zeit: <span id="timer">-</span></p>
+        <a asp-action="Index" class="btn btn-secondary mt-2">Zurück zu den Einstellungen</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const phaseLabel = document.getElementById("phase");
+        const timerLabel = document.getElementById("timer");
+        const kitten = document.getElementById("kitten");
+
+        const topSide = document.getElementById("top");
+        const rightSide = document.getElementById("rechts");
+        const bottomSide = document.getElementById("unten");
+        const leftSide = document.getElementById("links");
+
+        const hasKitten = @Json.Serialize(!IstStandardBild);
+
+        const settings = {
+            inhale: @Model.EinatmenSekunden,
+            hold: @Model.AnhaltenSekunden,
+            exhale: @Model.AusatmenSekunden,
+            pause: @Model.PauseSekunden,
+            totalMinutes: @Model.GesamtMinuten
+        };
+
+        let totalTime = settings.totalMinutes * 60;
+        let isRunning = true;
+
+        function resetSides() {
+            topSide.style.transition = 'none';
+            rightSide.style.transition = 'none';
+            bottomSide.style.transition = 'none';
+            leftSide.style.transition = 'none';
+
+            topSide.style.width = '0px';
+            rightSide.style.height = '0px';
+            bottomSide.style.width = '0px';
+            leftSide.style.height = '0px';
+
+            void topSide.offsetWidth;
+        }
+
+        function animateSide(side, duration, property, value) {
+            return new Promise(resolve => {
+                side.style.transition = `${property} ${duration}s linear`;
+
+                setTimeout(() => {
+                    side.style[property] = value;
+
+                    setTimeout(() => {
+                        resolve();
+                    }, duration * 1000 + 50);
+                }, 50);
+            });
+        }
+
+        function animateKittenInhale(duration) {
+            if(!hasKitten) return;
+            kitten.style.transition = `all ${duration}s ease-in-out`;
+            kitten.style.transform = 'scale(1.2)';
+            kitten.style.filter = 'brightness(1.1)';
+        }
+
+        function animateKittenHold() {
+             if(!hasKitten) return;
+            kitten.style.transition = 'none';
+            kitten.style.transform = 'scale(1.2)';
+            kitten.style.filter = 'brightness(1.1)';
+        }
+
+        function animateKittenExhale(duration) {
+             if(!hasKitten) return;
+            kitten.style.transition = `all ${duration}s ease-in-out`;
+            kitten.style.transform = 'scale(1)';
+            kitten.style.filter = 'brightness(1)';
+        }
+
+        function animateKittenPause() {
+             if(!hasKitten) return;
+            kitten.style.transition = 'none';
+            kitten.style.transform = 'scale(1)';
+            kitten.style.filter = 'brightness(1)';
+        }
+
+        async function countdown(seconds) {
+            for (let i = seconds; i > 0; i--) {
+                phaseLabel.innerText = `Beginnen Sie in: ${i}...`;
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+            phaseLabel.innerText = 'Start!';
+            await new Promise(resolve => setTimeout(resolve, 500));
+        }
+
+        async function startBreathing() {
+            const totalTimer = setInterval(() => {
+                if (!isRunning) {
+                    clearInterval(totalTimer);
+                    return;
+                }
+                totalTime--;
+                timerLabel.innerText = totalTime + ' Sek.';
+
+                if (totalTime <= 0) {
+                    clearInterval(totalTimer);
+                    isRunning = false;
+                    phaseLabel.innerText = 'Fertiggestellt';
+                }
+            }, 1000);
+
+            while (isRunning && totalTime > 0) {
+                resetSides();
+                await new Promise(resolve => setTimeout(resolve, 100));
+
+                phaseLabel.innerText = 'Einatmen';
+                animateKittenInhale(settings.inhale);
+                await animateSide(topSide, settings.inhale, 'width', '200px');
+                if (!isRunning || totalTime <= 0) break;
+
+                phaseLabel.innerText = 'Anhalten';
+                animateKittenHold(); 
+                await animateSide(rightSide, settings.hold, 'height', '200px');
+                if (!isRunning || totalTime <= 0) break;
+
+                phaseLabel.innerText = 'Ausatmen';
+                animateKittenExhale(settings.exhale);
+                await animateSide(bottomSide, settings.exhale, 'width', '200px');
+                if (!isRunning || totalTime <= 0) break;
+
+                phaseLabel.innerText = 'Pause';
+                animateKittenPause();
+                await animateSide(leftSide, settings.pause, 'height', '200px');
+                if (!isRunning || totalTime <= 0) break;
+
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+
+            kitten.style.transform = 'scale(1)';
+            kitten.style.filter = 'brightness(1)';
+            kitten.style.transition = 'all 0.5s ease-in-out';
+            phaseLabel.innerText = 'Die Übung ist abgeschlossen.';
+            timerLabel.innerText = '0 Sek.';
+        }
+
+        (async function() {
+            console.log("Einstellungen:", settings);
+
+            resetSides();
+            timerLabel.innerText = totalTime + ' Sek.';
+
+            await countdown(3);
+            await startBreathing();
+        })();
+
+        window.addEventListener('beforeunload', () => {
+            isRunning = false;
+        });
+    </script>
+}

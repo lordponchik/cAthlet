@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using cAthlet.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -17,6 +23,9 @@
 				<ul>
 					<li>
 						<a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+					</li>
+					<li>
+						<a asp-area="" asp-controller="Atem" asp-action="Index">Einheitliches Atmen</a>
 					</li>
 				</ul>
 				<partial name="_LoginPartial" />
